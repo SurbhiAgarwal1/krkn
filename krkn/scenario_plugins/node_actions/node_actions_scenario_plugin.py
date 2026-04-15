@@ -1,3 +1,16 @@
+# Copyright 2025 The Krkn Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 import logging
 import time
 from multiprocessing.pool import ThreadPool
@@ -40,7 +53,6 @@ class NodeActionsScenarioPlugin(AbstractScenarioPlugin):
         self,
         run_uuid: str,
         scenario: str,
-        krkn_config: dict[str, any],
         lib_telemetry: KrknTelemetryOpenshift,
         scenario_telemetry: ScenarioTelemetry,
     ) -> int:
@@ -62,7 +74,7 @@ class NodeActionsScenarioPlugin(AbstractScenarioPlugin):
                                 scenario_telemetry,
                             )
                             end_time = int(time.time())
-                            cerberus.get_status(krkn_config, start_time, end_time)
+                            cerberus.get_status(start_time, end_time)
                 except (RuntimeError, Exception) as e:
                     logging.error("Node Actions exiting due to Exception %s" % e)
                     return 1
